@@ -1,4 +1,4 @@
-from titanic.entitiy_b import Entity
+from titanic.entitiy import Entity
 '''
 PassengerId  고객ID,
 Survived 생존여부,
@@ -19,10 +19,4 @@ class Service:
     def __init__(self):
         self.entitiy = Entity()  # Autowired Entitiy entity
 
-    def new_model(self, payload):
-        pass
-    
-    @staticmethod
-    def create_train(this):
-        pass
     

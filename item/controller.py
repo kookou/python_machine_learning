@@ -1,11 +1,10 @@
-from titanic.entitiy_b import Entity
 from titanic.service import Service
-
+from titanic.entitiy import Entity
 
 class Controller:
     def __init__(self):
         self.service = Service()
-        self.entitiy_b = Entity()
+        self.entitiy = Entity()
 
     def preprocessing(self):
         pass
@@ -14,7 +13,7 @@ class Controller:
         pass
 
     def learning(self):
-        pass 
+        pass
 
     def submit(self):
         pass
