@@ -42,3 +42,23 @@ evaluation
 # calc.sum() 하면 인스턴스 호출방식 = 다이나믹
 # Calculator.sum() 하면 클래스 호출방식 = 스태틱 이라고 한다.
 
+
+----------------------------------------------------
+페이로드 / payload (컴퓨팅) : 전송되는 데이터 
+
+# this.fname = payload ~> setter 할당연산자 (=) 있으면 setter
+# this.fname 만 있으면  ~> getter 할당연산자 (=) 없으면 getter
+
+
+PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked  => 메타데이터 = 스키마 = features = variables = property
+1,0,3,"Braund, Mr. Owen Harris",male,22,1,0,A/5 21171,7.25,,S => row, 행, 인스턴스, raw 데이터
+2,1,1,"Cumings, Mrs. John Bradley (Florence Briggs Thayer)",female,38,1,0,PC 17599,71.2833,C85,C
+
+차원 (dim)
+variable x = 3 스칼라 값, 0차원
+array    [] = {1,2,3} 백터개념, 1차원이 되고 variable 은 element 가 된다.
+matrix  [[]] = {{1,2,3}, {4,5,6}} 매트릭스 2차원 data frame, array 라 하지않고 vector 라고 한다.
+
+------------------------------------------------------
+지도학습에서 반드시 해야할 일은 dataset을 생성하는 것이다.
+그때 dataset은 반드시 train, test 두가지 형태로 작성한다. 
