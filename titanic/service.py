@@ -1,10 +1,10 @@
 import sys
 sys.path.insert(0,'/Users/kuku/Desktop/anaconda')
-from titanic.entity import Entity
 
+from titanic.entity import Entity
 import numpy as np
 import pandas as pd
-source .bash_profile
+
 '''
 PassengerId  고객ID,
 Survived 생존여부, -> 머신러닝 모델이 맞춰야 할 답 
@@ -34,15 +34,13 @@ class Service:
         # this.fname 만 있으면  ~> getter 할당연산자 (=) 없으면 getter
 
     @staticmethod
-    def create_train(this)-> object:
+    def create_train(this) -> object:
         return this.train.drop('Survived', axis = 1) # train 은 답이 제거된 데이터 셋이다. * 서바이벌을 축으로 빼라.
     
-    # self 없이 create_label 기능을 만든다.
     @staticmethod
     def create_label(this) -> object:
         return this.train['Survived'] # label 은 곧 답이된다.
 
-    # 차원 축소하기위해 drop_feature 기능을 만든다.
     @staticmethod
     def drop_feature(this,feature)-> object:
         this.train = this.trian.drop([feature], axis =1) 
