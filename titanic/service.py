@@ -5,6 +5,17 @@ from titanic.entity import Entity
 import numpy as np
 import pandas as pd
 
+# sklearn algorithm : classification, regression, clustring, reduction
+from sklearn.tree import DecisionTreeClassifier # dtree
+from sklearn.ensemble import RandomForestClassifier # rforest
+from sklearn.naive_bayes import GaussianNB # nb
+from sklearn.neighbors import KNeighborsClassifier # knn
+from sklearn.svm import SVC # svm
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import KFold # k값은 count 로 이해 
+from sklearn.model_selection import cross_val_score
+# dtree, rforest, nb, knn, svm
+
 '''
 PassengerId  고객ID,
 Survived 생존여부, -> 머신러닝 모델이 맞춰야 할 답 
@@ -68,6 +79,7 @@ class Service:
         train = this.train
         test = this.test
         train['Age'] = train['Age'].fillna(-0.5)
+        test['Age'] = test['Age'].fillna(-0.5)
         # age 를 평균으로 넣기도 애매하고, 다수결로 넣기도 너무 근거가 없다.
         # 특히 age 는 생존률 판단에서 가중치(weigth)가 크기때문에 디테일한 접근이 필요하다.
         # 나이를 모르는 승객은 모르는 상태로 처리해야 값의 왜곡을 줄일 수 있어서 -0.5 라는 경계값으로 처리한다.
@@ -105,6 +117,7 @@ class Service:
             'Adult' : 6,
             'Senior' : 7
         }
+
         train['AgeGroup'] = train['AgeGroup'].map(age_mapping)
         test['AgeGroup'] = test['AgeGroup'].map(age_mapping)
         this.train = train
@@ -163,3 +176,33 @@ class Service:
         this.test = this.test
         return this
     
+    # Machine Learning Algorithm 중에서 dtree, rforest, nb, knn, svm 이것을 대표로 사용하겠다.
+
+    @staticmethod
+    def create_k_fold():
+        return KFold(n_splits=10, shuffle=True, random_state=0)
+
+    def accuracy_by_dtree(self, this):
+        dtree = DecisionTreeClassifier()
+        score = cross_val_score(dtree,this.train,this.label,cv=Service.create_k_fold(), n_jobs=1,scoring='accuracy')
+        return round(np.mean(score) * 100, 2)
+
+    def accuracy_by_rforest(self, this):
+        rforest = RandomForestClassifier()
+        score = cross_val_score(rforest,this.train,this.label,cv=Service.create_k_fold(), n_jobs=1,scoring='accuracy')
+        return round(np.mean(score) * 100, 2)
+
+    def accuracy_by_nb(self, this):
+        nb = GaussianNB()
+        score = cross_val_score(nb,this.train,this.label,cv=Service.create_k_fold(), n_jobs=1,scoring='accuracy')
+        return round(np.mean(score) * 100, 2)
+
+    def accuracy_by_knn(self, this):
+        knn = KNeighborsClassifier()
+        score = cross_val_score(knn,this.train,this.label,cv=Service.create_k_fold(), n_jobs=1,scoring='accuracy')
+        return round(np.mean(score) * 100, 2)
+
+    def accuracy_by_svm(self, this):
+        svm = SVC()
+        score = cross_val_score(svm,this.train,this.label,cv=Service.create_k_fold(), n_jobs=1,scoring='accuracy')
+        return round(np.mean(score) * 100, 2)

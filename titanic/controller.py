@@ -3,6 +3,8 @@ sys.path.insert(0, '/Users/kuku/Desktop/anaconda')
 
 from titanic.entity import Entity
 from titanic.service import Service
+from sklearn.ensemble import RandomForestClassifier # rforest
+import pandas as pd
 
 """
 PassengerId  고객ID,
@@ -69,17 +71,32 @@ class Controller:
         print(f'{this.train.isnull().sum()}')
         print(f'######## test na 체크 ##########')
         print(f'{this.test.isnull().sum()}')
+        
+
+        
 
         return this
         
 
-    def learning(self):
-        pass
+    def learning(self,train,test):
+        service = self.service
+        this = self.modeling(train,test)
+        print(('-'*20) + 'learning 결과' + ('-'*20))
+        print(f'결정트리 검증결과 : {service.accuracy_by_dtree(this)}')
+        print(f'랜덤포레스트 검증결과 : {service.accuracy_by_rforest(this)}')
+        print(f'나이브베이즈 검증결과 : {service.accuracy_by_nb(this)}')
+        print(f'KNN 검증결과 : {service.accuracy_by_knn(this)}')
+        print(f'SVM 검증결과 : {service.accuracy_by_svm(this)}')
 
-    def submit(self): # machine 이 된다. 이 단계는 캐글에게 내 머신이를 보내서 평가받게 하는 것 입니다. 마치 수능장에 자식보낸 부모님 마음 ...
-        pass
-
+    def submit(self, train, test): # machine 이 된다. 이 단계는 캐글에게 내 머신이를 보내서 평가받게 하는 것 입니다. 마치 수능장에 자식보낸 부모님 마음 ...
+        this = self.modeling(train, test)
+        clf = RandomForestClassifier()
+        clf.fit(this.train, this.label)
+        prediction = clf.predict(this.test)
+        pd.DataFrame(
+            {'PassengerId' : this.id, 'Survived' : prediction}
+        ).to_csv(this.context + 'submission.csv',index=False)
 
 if __name__ == '__main__':
     ctrl = Controller()
-    ctrl.modeling('train.csv','test.csv')
+    ctrl.submit('train.csv','test.csv')
