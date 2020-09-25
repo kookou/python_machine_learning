@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0,'/Users/kuku/Desktop/anaconda')
 
-from titanic.entity import Entity
+from util.file_handler import FileReder
 import numpy as np
 import pandas as pd
 
@@ -34,10 +34,11 @@ Embarked 승선한 항구명 C = 쉐브루, Q = 퀸즈타운, S = 사우스햄�
 
 class Service:
     def __init__(self):
-        self.entity = Entity()  # Autowired Entity entity
+        self.entity = FileReder()  # Autowired Entity entity
 
     def new_model(self, payload) -> object:
         this = self.entity
+        this.context = '/Users/kuku/Desktop/anaconda/titanic/data/'
         this.fname = payload
         return pd.read_csv(this.context + this.fname) # p.139  df = tensor
         # this.fname = payload ~> setter 할당연산자 (=) 있으면 setter

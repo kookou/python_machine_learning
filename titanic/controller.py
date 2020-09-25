@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '/Users/kuku/Desktop/anaconda')
 
-from titanic.entity import Entity
+from util.file_handler import FileReder
 from titanic.service import Service
 from sklearn.ensemble import RandomForestClassifier # rforest
 import pandas as pd
@@ -23,7 +23,7 @@ Embarked 승선한 항구명 C = 쉐브루, Q = 퀸즈타운, S = 사우스햄�
 
 class Controller:
     def __init__(self):
-        self.entity = Entity()
+        self.entity = FileReder()
         self.service = Service()
 
     def modeling(self, train, test):
@@ -39,6 +39,7 @@ class Controller:
     def preprocessing(self, train, test):
         service = self.service
         this = self.entity
+        this.context = '/Users/kuku/Desktop/anaconda/titanic/data/'
         this.train = service.new_model(train) # payload
         this.test = service.new_model(test) # payload
         this.id = this.test['PassengerId'] # machine 이에게는 이것이 question 이 됩니다. 
@@ -72,9 +73,6 @@ class Controller:
         print(f'######## test na 체크 ##########')
         print(f'{this.test.isnull().sum()}')
         
-
-        
-
         return this
         
 

@@ -1,13 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Counter from './components/Counter'
 
-const App = () => {
+
+const App = () => {  // lambda function notation
   return (
     <div>
-     <h1>Hello React!!</h1>
+      <h1>Hello React !!</h1>
+      <Counter/>
     </div>
   );
 }
-
 export default App;
