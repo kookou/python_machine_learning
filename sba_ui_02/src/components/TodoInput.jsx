@@ -1,4 +1,6 @@
 import React,{useState} from 'react'
+import uuid from 'uuid/v4'
+import {useDispatch} from 'react-redux'
 
 const TodoInput = () => {
     //todo 가 CRUD 대상(object) 이다. -> 속성이된다.
@@ -8,13 +10,18 @@ const TodoInput = () => {
     //기능과 속성이 함께 묶여 있을 경우 객체가 된다.  = const
     //JSON = Javascript Object Notation
     //object {'':'','':()=>{} } , array []
+    //객체 = 기능 + 속성
+    //함수 = 기능
+    //함수 = 객체 - 속성
+    //변수 = 객체 - 함수
 
-    const [todo, setTodo] = useState('')
 
+    const [todo, setTodo] = useState('') // Redux 를 사용하는 중 
+    const dispatch = useDispatch()
     const submitForm = e => {
         e.preventDefault() // default 기능은 막고, 내가 정의한 기능을 구현해라.
         const newTodo = {
-            todoId: '',
+            todoId: 'uuid()',
             name: todo,
             complage : false
         }
@@ -32,7 +39,7 @@ const TodoInput = () => {
     }
 
     return <>
-    <h1>할리갈리</h1>
+    <h1>할리 갈리</h1>
     <form onSubmit={submitForm} method='POST'>
         <div>
             <input type="text" name="todo" onChange={handleChange}/><br/>
