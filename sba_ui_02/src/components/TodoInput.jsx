@@ -1,6 +1,7 @@
-import React,{useState} from 'react'
+import React, {useState} from 'react'
 import uuid from 'uuid/v4'
 import {useDispatch} from 'react-redux'
+import {addTodoAction} from '../store/todoReducer'
 
 const TodoInput = () => {
     //todo 가 CRUD 대상(object) 이다. -> 속성이된다.
@@ -21,12 +22,13 @@ const TodoInput = () => {
     const submitForm = e => {
         e.preventDefault() // default 기능은 막고, 내가 정의한 기능을 구현해라.
         const newTodo = {
-            todoId: 'uuid()',
+            todoId: uuid(),
             name: todo,
             complage : false
         }
         addTodo(newTodo)
         setTodo("")
+        document.getElementById('input').value = ""
     }
 
     const handleChange = e => {
@@ -42,7 +44,7 @@ const TodoInput = () => {
     <h1>할리 갈리</h1>
     <form onSubmit={submitForm} method='POST'>
         <div>
-            <input type="text" name="todo" onChange={handleChange}/><br/>
+            <input type="text" name="todo" id="input" onChange={handleChange}/><br/>
             <input type="submit" value="SUBMIT"/>
         </div>
     </form>
